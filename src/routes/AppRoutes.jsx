@@ -15,8 +15,7 @@ import Signup from '../pages/authentication/_partials/SignUp';
 import Wishlist from '../pages/profile/_partials/Wishlist';
 import Order from '../pages/profile/_partials/Order';
 
-import { useEffect } from 'react';
-import { AuthProvider } from '../context/AuthContext';
+import { Suspense, useEffect } from 'react';
 import OrderConfirmation from '../pages/Order-confirmation';
 
 function AppContent() {
@@ -37,43 +36,42 @@ function AppContent() {
   return (
     <>
       {!shouldHideNav && <NavBar />}
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/product" element={<Listing />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<CheckOut />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/orderConfirmation" element={<OrderConfirmation />} />
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/product" element={<Listing />} />
-        <Route path="/product/:id" element={<Product />} />
-        <Route path="/category" element={<Category />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<CheckOut />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/orderConfirmation" element={<OrderConfirmation />} />
-
-        <Route
-          path="profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<Order />} />
-          <Route path="orders" element={<Order />} />
-          <Route path="wishlist" element={<Wishlist />} />
-        </Route>
-      </Routes>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Order />} />
+            <Route path="orders" element={<Order />} />
+            <Route path="wishlist" element={<Wishlist />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </>
   );
 }
 
 export default function AppRoutes() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </AuthProvider>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }

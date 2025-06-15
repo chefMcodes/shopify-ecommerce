@@ -122,10 +122,18 @@ const NavBar = () => {
             className="w-full"
           />
           <nav className="flex flex-col gap-3 text-sm">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/category">Categories</NavLink>
-            <NavLink to="/about">About</NavLink>
-            <NavLink to="/contact">Contact</NavLink>
+            <NavLink to="/" onClick={() => setIsMenuOpen(false)}>
+              Home
+            </NavLink>
+            <NavLink to="/category" onClick={() => setIsMenuOpen(false)}>
+              Categories
+            </NavLink>
+            <NavLink to="/about" onClick={() => setIsMenuOpen(false)}>
+              About
+            </NavLink>
+            <NavLink to="/contact" onClick={() => setIsMenuOpen(false)}>
+              Contact
+            </NavLink>
           </nav>
           {/* <div className="flex gap-5 mt-2">
             <div>

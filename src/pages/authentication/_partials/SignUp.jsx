@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { register } from '../../../utils/authService';
-import { useNavigate } from 'react-router-dom';
+import { register, signInWithGoogle } from '../../../utils/authService';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { Button } from 'antd';
-import { NavLink } from 'react-router-dom';
-import { signInWithGoogle } from '../../../utils/authService';
 import { FcGoogle } from 'react-icons/fc';
 
 export default function Signup() {
@@ -23,11 +21,18 @@ export default function Signup() {
   };
 
   return (
-    <form onSubmit={handleSignup}>
-      <div className="m-auto w-1/4 mt-30 bg-white mb-20 p-6 rounded ">
-        <Button className="!w-full !mb-7" onClick={signInWithGoogle}>
-          <FcGoogle /> Continue with Google
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
+      <form
+        onSubmit={handleSignup}
+        className="w-full max-w-md bg-white p-8 rounded-md shadow-md"
+      >
+        <Button
+          className="!w-full !mb-7 flex items-center justify-center gap-2"
+          onClick={signInWithGoogle}
+        >
+          <FcGoogle size={20} /> Continue with Google
         </Button>
+
         <label className="text-[#474B57]">Name</label>
         <input
           value={name}
@@ -51,21 +56,31 @@ export default function Signup() {
         />
 
         <p className="text-[#5C5F6A] text-xs mt-3">
-          By creating an account you agree with our Terms of Service, Privacy
-          Policy,
+          By creating an account you agree with our{' '}
+          <span className="text-blue-600 underline cursor-pointer">
+            Terms of Service
+          </span>{' '}
+          and{' '}
+          <span className="text-blue-600 underline cursor-pointer">
+            Privacy Policy
+          </span>
+          .
         </p>
 
         <Button
+          htmlType="submit"
           className="!w-full !bg-[#0E1422] !text-white !mt-6"
-          onClick={handleSignup}
         >
           Create Account
         </Button>
 
         <p className="text-xs text-center pt-4">
-          Already have an account? <NavLink to="/login">Login</NavLink>
+          Already have an account?{' '}
+          <NavLink to="/login" className="text-blue-600">
+            Login
+          </NavLink>
         </p>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
